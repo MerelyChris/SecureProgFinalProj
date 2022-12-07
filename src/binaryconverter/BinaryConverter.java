@@ -12,7 +12,7 @@ public class BinaryConverter {
         String ans = "1";
         while(!ans.equals("0")){
             Scanner input = new Scanner(System.in);
-            System.out.print("To convert a byte of binary press '1', to convert an integer press '2': ");
+            System.out.print("To convert binary press '1', to convert an integer press '2', to exit press '0': ");
             ans = input.nextLine();
             boolean result = validAns(ans);
             if(result == true){
@@ -46,32 +46,20 @@ public class BinaryConverter {
         return intArr;
     }
     public static void handleBinary(Scanner input){
-        int total = 0;
-        System.out.print("Enter byte of binary: ");
+        System.out.print("Enter binary: ");
         String binary = input.next();
-        int[] intArr = split(binary);
-        int[] binTable = {128,64,32,16,8,4,2,1};
-        for(int n = 0; n < intArr.length; n++){
-            if(intArr[n] == 1){
-                total += binTable[n];
-            }
-        }
-        System.out.println(binary + " as an integer is " + total);
+        int decimal = Integer.parseInt(binary,2);
+        System.out.println(binary + " as an integer is " + decimal);
     }
     public static void handleInteger(Scanner input){
         System.out.print("Enter integer: ");
-        int integer = input.nextInt();
-        int origInt = integer;
-        int[] binTable = {128,64,32,16,8,4,2,1};
-        String binary = "";
-        for(int n = 0; n < binTable.length; n++){
-            if(binTable[n]-integer<=0){
-                binary += '1';
-                integer -= binTable[n];
-            }
-            else
-                binary += '0';
+        String testInt = input.nextLine();
+        while(!testInt.matches("^[0-9]+$")){
+            System.out.print("Incorrect input, try again: ");
+            testInt = input.nextLine();
         }
-        System.out.println(origInt + " as an integer is " + binary);
+        Integer finInt = Integer.parseInt(testInt);
+        String binary = Integer.toBinaryString(finInt);
+        System.out.println(testInt + " as an integer is " + binary);
     }
 }
