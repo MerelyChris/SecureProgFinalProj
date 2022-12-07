@@ -38,26 +38,25 @@ public class BinaryConverter {
         return false;
     }
 
-    public static int[] split(String inp){
-        int[] intArr = new int[inp.length()];
-        for(int n = 0; n < inp.length(); n++){
-            intArr[n] = Character.getNumericValue(inp.charAt(n));
-        }
-        return intArr;
-    }
     public static void handleBinary(Scanner input){
         System.out.print("Enter binary: ");
-        String binary = input.next();
-        int decimal = Integer.parseInt(binary,2);
-        System.out.println(binary + " as an integer is " + decimal);
+        String testBin = input.nextLine();
+        while(!testBin.matches("^[0-1]+$")){
+            System.out.print("Incorrect input, try again: ");
+            testBin = input.nextLine();
+        }
+        int decimal = Integer.parseInt(testBin,2);
+        System.out.println(testBin + " as an integer is " + decimal);
     }
+    
     public static void handleInteger(Scanner input){
         System.out.print("Enter integer: ");
         String testInt = input.nextLine();
-        while(!testInt.matches("^[0-9]+$")){
+        while(!testInt.matches("^[0-9]+$") || Integer.valueOf(testInt)>2147483647){
             System.out.print("Incorrect input, try again: ");
             testInt = input.nextLine();
         }
+        
         Integer finInt = Integer.parseInt(testInt);
         String binary = Integer.toBinaryString(finInt);
         System.out.println(testInt + " as an integer is " + binary);
