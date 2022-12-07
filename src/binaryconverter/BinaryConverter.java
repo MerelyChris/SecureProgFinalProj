@@ -1,5 +1,4 @@
 package binaryconverter;
-
 import java.util.Scanner;
 
 public class BinaryConverter {
@@ -9,25 +8,38 @@ public class BinaryConverter {
      */
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        
-        System.out.print("Do you have a byte(1) or integer(2)? ");
-        int ans = input.nextInt();
-        
-        while(ans != 0){
-            switch(ans){
-                case 1:
-                    handleBinary(input);
-                    break;
-                case 2:
-                    handleInteger(input);
-                    break;
-                default:
-                    System.out.println("Did not enter valid response");
+
+        System.out.print("To convert a byte of binary press '1', to convert an integer press '2': ");
+        String ans = input.nextLine();
+
+
+        while(!ans.matches("0")){
+            if(validAns(ans) == true){
+                switch(ans){
+                    case "1":
+                        handleBinary(input);
+                        break;
+                    case "2":
+                        handleInteger(input);
+                        break;
+                }
             }
-            System.out.print("Enter another byte(1), integer(2), or quit(0): ");
-            ans = input.nextInt();
+            else{
+                System.out.println("Incorrect input");
+            }
+            System.out.print("Enter a byte '1', integer '2', or quit '0': ");
+            ans = input.nextLine();
         }
+
+ 
     }
+    public static boolean validAns(String ans){
+        if(ans.matches("^[0-2]?")){
+            return true;
+        }
+        return false;
+    }
+
     public static int[] split(String inp){
         int[] intArr = new int[inp.length()];
         for(int n = 0; n < inp.length(); n++){
