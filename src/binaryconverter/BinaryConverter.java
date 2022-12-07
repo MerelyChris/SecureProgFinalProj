@@ -7,14 +7,15 @@ public class BinaryConverter {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
-
-        System.out.print("To convert a byte of binary press '1', to convert an integer press '2': ");
-        String ans = input.nextLine();
 
 
-        while(!ans.matches("0")){
-            if(validAns(ans) == true){
+        String ans = "1";
+        while(!ans.equals("0")){
+            Scanner input = new Scanner(System.in);
+            System.out.print("To convert a byte of binary press '1', to convert an integer press '2': ");
+            ans = input.nextLine();
+            boolean result = validAns(ans);
+            if(result == true){
                 switch(ans){
                     case "1":
                         handleBinary(input);
@@ -24,15 +25,12 @@ public class BinaryConverter {
                         break;
                 }
             }
-            else{
+            else if(result == false){
                 System.out.println("Incorrect input");
             }
-            System.out.print("Enter a byte '1', integer '2', or quit '0': ");
-            ans = input.nextLine();
-        }
-
- 
+        } 
     }
+    
     public static boolean validAns(String ans){
         if(ans.matches("^[0-2]?")){
             return true;
