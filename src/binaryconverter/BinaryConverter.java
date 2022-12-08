@@ -9,7 +9,7 @@ public class BinaryConverter {
         Scanner input = new Scanner(System.in);
         String res = "";
         while(!res.equals("0")){
-            res = handleCycle(input);
+            res = handleFork(input);
             switch(res){
                 case "1":
                     handleBin(input);
@@ -26,7 +26,7 @@ public class BinaryConverter {
     
 
     //Program Cycle Methods
-    public static String handleCycle(Scanner input){
+    public static String handleFork(Scanner input){
         System.out.print("To convert binary press '1', to convert an integer press '2', to exit press '0': ");
         String ans = input.nextLine();
         boolean result = validAns(ans);
@@ -108,5 +108,4 @@ public class BinaryConverter {
         String integer = String.valueOf(res);
         return integer;
     }
-
 }
