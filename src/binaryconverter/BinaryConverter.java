@@ -28,7 +28,7 @@ public class BinaryConverter {
 
     //Program Cycle Methods
     public static String handleFork(Scanner input){
-        System.out.print("To convert binary press '1', to convert an integer press '2', to exit press '0': ");
+        System.out.print("To convert int to bin press '1', to convert bin to int press '2', to exit press '0': ");
         String ans = input.nextLine();
         boolean result = validAns(ans);
 
