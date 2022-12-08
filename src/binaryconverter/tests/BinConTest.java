@@ -3,14 +3,14 @@ import static org.junit.Assert.*;
 
 import java.io.ByteArrayInputStream;
 import java.util.Scanner;
-import org.junit.rules.Timeout;
+
 
 import org.junit.Test;
 
 import binaryconverter.BinaryConverter;
 public class BinConTest{
     @Test
-    public void test_validAns(){
+    public void testValidAns(){
         //Bounds 
         assertTrue(BinaryConverter.validAns("0")); //lower
         assertTrue(BinaryConverter.validAns("2")); //uppper
@@ -23,7 +23,7 @@ public class BinConTest{
     }
 
     @Test
-    public void test_validBin(){
+    public void testValidBin(){
         //Bounds 
         assertTrue(BinaryConverter.validBin("0")); //lower
         assertTrue(BinaryConverter.validBin("1111111111111111111111111111111")); //uppper
@@ -36,7 +36,7 @@ public class BinConTest{
     }
 
     @Test
-    public void test_validInt(){
+    public void testValidInt(){
         //Bounds 
         assertTrue(BinaryConverter.validInt("0")); //lower
         assertTrue(BinaryConverter.validInt("2147483646")); //uppper
@@ -49,19 +49,19 @@ public class BinConTest{
     }
 
     @Test
-    public void test_convBin(){
+    public void testConvBin(){
         assertEquals("10", BinaryConverter.convBin("1010")); //valid
         assertNotEquals("1010", BinaryConverter.convBin("10")); //invalid
     }
 
     @Test
-    public void test_convInt(){
+    public void testConvInt(){
         assertEquals("1010", BinaryConverter.convInt("10")); //valid
         assertNotEquals("10", BinaryConverter.convInt("1010")); //invalid
     }
 
     @Test
-    public void test_handleFork(){
+    public void testHandleFork(){
         ByteArrayInputStream inp = new ByteArrayInputStream("1".getBytes());
         System.setIn(inp);
         Scanner scan = new Scanner(inp);

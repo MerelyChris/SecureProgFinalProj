@@ -3,9 +3,10 @@ import java.util.Scanner;
 import java.math.BigDecimal;
 
 public class BinaryConverter {
-
+    static final String INV_SPLASH = "Incorrect input, try again: ";
 
     public static void main(String[] args) {
+
         Scanner input = new Scanner(System.in);
         String res = "";
         while(!res.equals("0")){
@@ -31,8 +32,8 @@ public class BinaryConverter {
         String ans = input.nextLine();
         boolean result = validAns(ans);
 
-        while(result != true){
-            System.out.print("Incorrect input, try again: ");
+        while(!result){
+            System.out.print(INV_SPLASH);
             ans = input.nextLine();
             result = validAns(ans);
         }
@@ -40,10 +41,7 @@ public class BinaryConverter {
     }
 
     public static boolean validAns(String inp){
-        if(inp.matches("^[0-2]?")){
-            return true;
-        }
-        return false;
+        return inp.matches("^[0-2]?");
     }
 
 
@@ -53,8 +51,8 @@ public class BinaryConverter {
 
         String testBin = intInp.nextLine();
         boolean binState = validBin(testBin);
-        while(binState != true){
-            System.out.print("Incorrect input, try again: ");
+        while(!binState){
+            System.out.print(INV_SPLASH);
             testBin = intInp.nextLine();
             binState = validBin(testBin);
         }
@@ -64,22 +62,17 @@ public class BinaryConverter {
     }
 
     public static boolean validInt(String inp){
-        if(inp.matches("^[0-9]+$")){
+        if(inp.matches("^\\d+$")){
             BigDecimal maxInt = new BigDecimal(2147483647);
             BigDecimal bigDec = new BigDecimal(inp);
-            int res = maxInt.compareTo(bigDec);
-            if(res != -1){
-                return true;
-            }
-            return false;
+            return maxInt.compareTo(bigDec) > -1;
         }
         return false;
     }
 
     public static String convInt(String inp){
         Integer res = Integer.parseInt(inp);
-        String binary = Integer.toBinaryString(res);
-        return binary;
+        return Integer.toBinaryString(res);
     }
 
     //Binary Methods
@@ -87,8 +80,8 @@ public class BinaryConverter {
         System.out.print("Enter integer: ");
         String testInt = binInp.nextLine();
         boolean intState = validInt(testInt);
-        while(intState != true){
-            System.out.print("Incorrect input, try again: ");
+        while(!intState){
+            System.out.print(INV_SPLASH);
             testInt = binInp.nextLine();
             intState = validInt(testInt);
         }
@@ -97,15 +90,11 @@ public class BinaryConverter {
     }
 
     public static boolean validBin(String inp){
-        if(inp.matches("^[0-1]+$") && inp.length() <= 31){
-            return true;
-        }
-        return false;
+        return (inp.matches("^[0-1]+$") && inp.length() <= 31);
     }
 
     public static String convBin(String inp){
         int res = Integer.parseInt(inp,2);
-        String integer = String.valueOf(res);
-        return integer;
+        return String.valueOf(res);
     }
 }
