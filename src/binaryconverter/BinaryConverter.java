@@ -4,33 +4,41 @@ import java.math.BigDecimal;
 
 public class BinaryConverter {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
 
-        String ans = "1";
-        while(!ans.equals("0")){
-            Scanner input = new Scanner(System.in);
-            System.out.print("To convert binary press '1', to convert an integer press '2', to exit press '0': ");
-            ans = input.nextLine();
-            boolean result = validAns(ans);
-            if(result == true){
-                switch(ans){
-                    case "1":
-                        handleBinary(input);
-                        break;
-                    case "2":
-                        handleInteger(input);
-                        break;
-                }
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        String res = "";
+        while(!res.equals("0")){
+            res = handleCycle(input);
+            switch(res){
+                case "1":
+                    handleBin(input);
+                    break;
+                case "2":
+                    handleInt(input);
+                    break;
+                default:
+                    break;
             }
-            else if(result == false){
-                System.out.println("Incorrect input");
-            }
-        } 
+        }
+        input.close();
     }
     
+
+    //Program Cycle Methods
+    public static String handleCycle(Scanner input){
+        System.out.print("To convert binary press '1', to convert an integer press '2', to exit press '0': ");
+        String ans = input.nextLine();
+        boolean result = validAns(ans);
+
+        while(result != true){
+            System.out.print("Incorrect input, try again: ");
+            ans = input.nextLine();
+            result = validAns(ans);
+        }
+        return ans;
+    }
+
     public static boolean validAns(String inp){
         if(inp.matches("^[0-2]?")){
             return true;
@@ -38,36 +46,67 @@ public class BinaryConverter {
         return false;
     }
 
+
+    //Integer Methods
+    public static void handleInt(Scanner intInp){
+        System.out.print("Enter binary: ");
+
+        String testBin = intInp.nextLine();
+        boolean binState = validBin(testBin);
+        while(binState != true){
+            System.out.print("Incorrect input, try again: ");
+            testBin = intInp.nextLine();
+            binState = validBin(testBin);
+        }
+        String integer = convBin(testBin);
+        System.out.println(testBin + " as an integer is " + integer);
+
+    }
+
     public static boolean validInt(String inp){
-        BigDecimal maxInt = new BigDecimal(2147483647);
-        BigDecimal bigDec = new BigDecimal(inp);
-        int res = maxInt.compareTo(bigDec);
-        if(!inp.matches("^[0-9]+$") || res == -1){
+        if(inp.matches("^[0-9]+$")){
+            BigDecimal maxInt = new BigDecimal(2147483647);
+            BigDecimal bigDec = new BigDecimal(inp);
+            int res = maxInt.compareTo(bigDec);
+            if(res != -1){
+                return true;
+            }
             return false;
         }
-        return true;
+        return false;
     }
 
-    public static void handleBinary(Scanner input){
-        System.out.print("Enter binary: ");
-        String testBin = input.nextLine();
-        while(!testBin.matches("^[0-1]+$")){
-            System.out.print("Incorrect input, try again: ");
-            testBin = input.nextLine();
-        }
-        int decimal = Integer.parseInt(testBin,2);
-        System.out.println(testBin + " as an integer is " + decimal);
+    public static String convInt(String inp){
+        Integer res = Integer.parseInt(inp);
+        String binary = Integer.toBinaryString(res);
+        return binary;
     }
 
-    public static void handleInteger(Scanner input){
+    //Binary Methods
+    public static void handleBin(Scanner binInp){
         System.out.print("Enter integer: ");
-        String testInt = input.nextLine();
-        while(validInt(testInt) != true){
+        String testInt = binInp.nextLine();
+        boolean intState = validInt(testInt);
+        while(intState != true){
             System.out.print("Incorrect input, try again: ");
-            testInt = input.nextLine();
+            testInt = binInp.nextLine();
+            intState = validInt(testInt);
         }
-        Integer finInt = Integer.parseInt(testInt);
-        String binary = Integer.toBinaryString(finInt);
-        System.out.println(testInt + " as an integer is " + binary);
+        String binary = convInt(testInt);
+        System.out.println(testInt + " in binary is " + binary);
     }
+
+    public static boolean validBin(String inp){
+        if(inp.matches("^[0-1]+$") && inp.length() <= 31){
+            return true;
+        }
+        return false;
+    }
+
+    public static String convBin(String inp){
+        int res = Integer.parseInt(inp,2);
+        String integer = String.valueOf(res);
+        return integer;
+    }
+
 }
